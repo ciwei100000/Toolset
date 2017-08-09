@@ -3,9 +3,14 @@
 from keywordlookup import keywordlookup
 
 import argparse
+import os
 
 
 def keywordjs(ifile, ofile, fi, fe, patternfile, pe):
+
+    ifile = os.path.expanduser(os.path.expandvars(ifile))
+    ofile = os.path.expanduser(os.path.expandvars(ofile))
+
     with open(patternfile, 'r') as f:
         with open(ofile, 'w') as w:
             for line in f:

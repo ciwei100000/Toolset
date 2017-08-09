@@ -6,6 +6,10 @@ import re
 
 
 def keywordlookup(ifile, ofile, fi, fe, pattern, pe):
+
+    ifile = os.path.expanduser(os.path.expandvars(ifile))
+    ofile = os.path.expanduser(os.path.expandvars(ofile))
+
     find = re.compile(r'%s' % pattern)
     fi_n = 0
     fe_n = 0
