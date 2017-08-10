@@ -58,23 +58,24 @@ def parentid(ifile, ofile):
                     of.write("\n")
                 if ret > 0 and ret < 7:
                     of.write("\t" + parent + "\n")
+                    if ret < 6:
+                        parentstore = ""
                     if ret == 6:
                         parentstore = line[0:16]
                 if ret == 7:
                     if parentstore is not "":
                         of.write("\t" + parentstore + "\n")
-                        parentstore = ""
                     else:
                         of.write("\t" + parent + "\n")
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='look for pattern in files')
-    parser.add_argument('--ifile', '-i', dest='ifile', type=str, help='The input file or directories, default is ./',
-                        default='./')
+    parser.add_argument('--ifile', '-i', dest='ifile', type=str, help='The input file containing goods_id, default is ./parentid_input',
+                        default='./parentid_input')
     parser.add_argument('--ofile', '-o', dest='ofile', type=str,
-                        help='The file to store the results, default is ./keywordlookup_output',
-                        default='./keywordlookup_output')
+                        help='The file to store the results, default is ./parentid_output',
+                        default='./parentid_output')
     args = parser.parse_args()
 
     parentid(args.ifile, args.ofile)
