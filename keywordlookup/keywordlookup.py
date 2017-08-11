@@ -55,12 +55,12 @@ def keywordlookup(ifile, ofile, fi, fe, pattern, pe):
                                     out.write(line + '\n')
         else:
             do = 0
-            if not fi_n:
+            if fi_n:
                 if re.search(ext_i, ifile):
                     do = 1
             else:
                 do = 1
-            if not fe_n:
+            if fe_n:
                 if re.search(ext_e, ifile):
                     do = 0
             if do:
@@ -69,7 +69,7 @@ def keywordlookup(ifile, ofile, fi, fe, pattern, pe):
                     for line in f:
                         n += 1
                         if re.search(find, line):
-                            out.write(os.path.abspath(ifile) + ':\t' + 'line:' + str(n) + '\n')
+                            #out.write(os.path.abspath(ifile) + ':\t' + 'line:' + str(n) + '\n')
                             out.write(line + '\n')
 
 
