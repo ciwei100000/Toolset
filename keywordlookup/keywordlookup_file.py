@@ -6,8 +6,7 @@ import argparse
 import os
 
 
-def keywordjs(ifile, ofile, fi, fe, patternfile, pe):
-
+def keywordfile(ifile, ofile, fi, fe, patternfile, pe):
     ifile = os.path.expanduser(os.path.expandvars(ifile))
     ofile = os.path.expanduser(os.path.expandvars(ofile))
 
@@ -15,6 +14,7 @@ def keywordjs(ifile, ofile, fi, fe, patternfile, pe):
         with open(ofile, 'w') as w:
             for line in f:
                 print line
+                line = line.replace('\n', '')
                 keywordlookup(ifile, ofile + '_tmp_', fi, fe, line, pe)
                 with open(ofile + '_tmp_', 'r') as r:
                     w.write(line + '\n')
@@ -40,4 +40,4 @@ if __name__ == '__main__':
                         help='Use regular expression to exclude input file path', default='')
     args = parser.parse_args()
 
-    keywordjs(args.ifile, args.ofile, args.fi, args.fe, args.patternfile, args.pe)
+    keywordfile(args.ifile, args.ofile, args.fi, args.fe, args.patternfile, args.pe)
