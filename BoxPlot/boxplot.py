@@ -19,9 +19,10 @@ def boxplot(ifile, ofile):
     listofgroup_y = []
 
     if os.path.isdir(ifile):
-        for dirpath, dirnames, filenames in os.walk(ifile):
+        for dirpath, dirnames, filenames in sortedwalk(ifile):
             basename = os.path.basename(dirpath)
             num_file = 0
+            #filenames.sort(key=str.lower)
             for filename in filenames:
                 num_file = num_file + 1
                 x = []
@@ -46,17 +47,43 @@ def boxplot(ifile, ofile):
 
         for i in range(len(listofgroup_x)):
             trace = go.Box(
-                y=listofgroup_y,
-                x=listofgroup_x,
-                name="$d" % i,
+                y=listofgroup_y[i],
+                x=listofgroup_x[i],
+                name="%d" % i,
+                orientation="h",
+                #boxpoints=False
             )
 
             data.append(trace)
 
         layout = go.Layout(
+            autosize=False,
+            width=2000,
+            height=1200,
+            margin=go.Margin(
+                l=200,
+                r=50,
+                b=150,
+                t=50,
+                pad=10
+            ),
+            xaxis=dict(
+                type="log",
+                autorange=True,
+                title='transfer time (LOG SCALE)',
+                titlefont=dict(
+                    size='24'
+                ),
+                zeroline=False,
+                tickfont=dict(
+                    size='24'
+                )
+            ),
             yaxis=dict(
-                title='transfer time',
-                zeroline=False
+                tickfont=dict(
+                    size='24'
+                ),
+                showgrid=True
             ),
             boxmode='group'
         )
@@ -78,6 +105,30 @@ def boxplot(ifile, ofile):
         fig = go.Figure(data)
 
     py.image.save_as(fig, filename='%s.png' % ofile)
+
+
+def sortedwalk(top, topdown=True, onerror=None):
+    from os.path import join, isdir
+
+    names = os.listdir(top)
+    names.sort()
+    dirs, nondirs = [], []
+
+    for name in names:
+        if isdir(os.path.join(top, name)):
+            dirs.append(name)
+        else:
+            nondirs.append(name)
+
+    if topdown:
+        yield top, dirs, nondirs
+    for name in dirs:
+        path = join(top, name)
+        if not os.path.islink(path):
+            for x in sortedwalk(path, topdown, onerror):
+                yield x
+    if not topdown:
+        yield top, dirs, nondirs
 
 
 if __name__ == '__main__':
