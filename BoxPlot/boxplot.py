@@ -51,7 +51,7 @@ def boxplot(ifile, ofile):
                 x=listofgroup_x[i],
                 name="%d" % i,
                 orientation="h",
-                #boxpoints=False
+                boxpoints=False
             )
 
             data.append(trace)
@@ -61,16 +61,16 @@ def boxplot(ifile, ofile):
             width=2000,
             height=1200,
             margin=go.Margin(
-                l=200,
+                l=300,
                 r=50,
                 b=150,
                 t=50,
-                pad=10
+                pad=20
             ),
             xaxis=dict(
-                type="log",
+                type='linear',
                 autorange=True,
-                title='transfer time (LOG SCALE)',
+                title='Throughput (MB/s)',
                 titlefont=dict(
                     size='24'
                 ),
@@ -81,7 +81,7 @@ def boxplot(ifile, ofile):
             ),
             yaxis=dict(
                 tickfont=dict(
-                    size='24'
+                    size='18'
                 ),
                 showgrid=True
             ),
