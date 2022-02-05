@@ -15,15 +15,15 @@ def keywordlookup(ifile, ofile, fi, fe, pattern, pe):
     fe_n = 0
     pe_n = 0
 
-    if fi is not '':
+    if fi != '':
         ext_i = re.compile(r'%s' % fi)
         fi_n = 1
 
-    if fe is not '':
+    if fe != '':
         ext_e = re.compile(r'%s' % fe)
         fe_n = 1
 
-    if pe is not '':
+    if pe != '':
         ext_pe = re.compile(r'%s' % pe)
         pe_n = 1
 
@@ -51,7 +51,8 @@ def keywordlookup(ifile, ofile, fi, fe, pattern, pe):
                             for line in f:
                                 n += 1
                                 if re.search(find, line):
-                                    out.write(filepath + ':\t' + 'line:' + str(n) + '\n')
+                                    out.write(filepath + ':\t' +
+                                              'line:' + str(n) + '\n')
                                     out.write(line + '\n')
         else:
             do = 0
@@ -91,4 +92,5 @@ if __name__ == '__main__':
                         help='Use regular expression to exclude input file path', default='')
     args = parser.parse_args()
 
-    keywordlookup(args.ifile, args.ofile, args.fi, args.fe, args.pattern, args.pe)
+    keywordlookup(args.ifile, args.ofile, args.fi,
+                  args.fe, args.pattern, args.pe)

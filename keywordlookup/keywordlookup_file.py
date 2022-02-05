@@ -13,7 +13,7 @@ def keywordfile(ifile, ofile, fi, fe, patternfile, pe):
     with open(patternfile, 'r') as f:
         with open(ofile, 'w') as w:
             for line in f:
-                print line
+                print(line)
                 line = line.replace('\n', '')
                 keywordlookup(ifile, ofile + '_tmp_', fi, fe, line, pe)
                 with open(ofile + '_tmp_', 'r') as r:
